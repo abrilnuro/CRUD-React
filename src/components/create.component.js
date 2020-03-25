@@ -1,4 +1,5 @@
 import React from 'react';
+import Axios from 'axios';
 
 class Create extends React.Component {
     constructor(props) {
@@ -30,7 +31,20 @@ class Create extends React.Component {
 
     onSubmit(e) {
         e.preventDefault();
-        alert(this.state.businessGstNumber)
+        const object = {
+            personName: this.state.personName,
+            businessName: this.state.businessName,
+            businessGstNumber: this.state.businessGstNumber
+        }
+
+        Axios.post('http://localhost:4000/business/add', object)
+            .then(res => console.log(res.data));
+
+        this.setState({
+            personName: '',
+            businessName: '',
+            businessGstNumber: ''
+        });
     }
 
     render() {

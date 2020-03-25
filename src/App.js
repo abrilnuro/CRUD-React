@@ -3,6 +3,8 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import CreateComponent from './components/create.component.js';
+import IndexComponent from './components/index.component';
+import EditComponent from './components/edit.component';
 
 class App extends React.Component {
   render() {
@@ -21,12 +23,18 @@ class App extends React.Component {
                 <li className="nav-item">
                   <Link to={'/create'} className="nav-link text-light">Create</Link>
                 </li>
+
+                <li className="nav-item">
+                  <Link to={'/index'} className="nav-link text-light">Index</Link>
+                </li>
               </ul>
             </div>
           </nav>
 
           <Switch>
             <Route exact path='/create' component={CreateComponent}/>
+            <Route path='/edit/:id' component={ EditComponent } />
+            <Route exact pacth='/index' component={IndexComponent}/>
           </Switch>
 
         </div>
