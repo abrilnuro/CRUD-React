@@ -1,7 +1,5 @@
 import React from 'react';
 import Input from '@material-ui/core/Input';
-import '../styles/styles.css';
-import '../styles/styles.js';
 
 class Upload extends React.Component {
   constructor(props){
@@ -24,9 +22,8 @@ class Upload extends React.Component {
         <img style={{width: 200, height: 200}}
             src={this.state.file}/>
 
-        <input type="file" onChange={this.handleChange}
-            className="" />
-        
+        <Input type="file" onChange={this.handleChange}/>
+
       </div>
     );
   }
