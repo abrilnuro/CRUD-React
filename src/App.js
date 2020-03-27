@@ -10,9 +10,9 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <div className="container">
+        <div className="container mt-4">
           <nav className="navbar navbar-expand-lg navbar-light bg-dark">
-            <Link to={"/"} className="navbar-brand text-light">CRUD</Link>
+            <Link to={"/"} className="navbar-brand text-light"><h3>Catalogue</h3></Link>
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent"> 
               <ul className="navbar-nav mr-auto">
@@ -25,7 +25,7 @@ class App extends React.Component {
                 </li>
 
                 <li className="nav-item">
-                  <Link to={'/index'} className="nav-link text-light">Index</Link>
+                  <Link to={'/index'} className="nav-link text-light">List</Link>
                 </li>
               </ul>
             </div>
