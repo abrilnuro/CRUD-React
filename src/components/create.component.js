@@ -1,5 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
+import UploadImage from './uploadImage.component'
+
 
 class Create extends React.Component {
     constructor(props) {
@@ -73,34 +75,42 @@ class Create extends React.Component {
                 <div className="container mt-5 border border-dark p-4">
                     <h4 className="text-center text-light bg-dark p-2">Add a new Supplier</h4>
 
-                    <form className="col-6"> 
-                        <div className="form-group">
-                            <input type="text" className="form-control" 
-                            placeholder="Supplier Name"
-                            value={this.state.personName}
-                            onChange={this.onChangePersonName}/>
-                        </div>
-                        <div className="form-group">
-                            <input type="text" className="form-control"
-                            placeholder="Business Name"
-                            value={this.state.businessName}
-                            onChange={this.onChangeBusinessName}/>
+                    <div className="row"> 
+
+                        <form className="col-6"> 
+                            <div className="form-group">
+                                <input type="text" className="form-control" 
+                                placeholder="Supplier Name"
+                                value={this.state.personName}
+                                onChange={this.onChangePersonName}/>
+                            </div>
+                            <div className="form-group">
+                                <input type="text" className="form-control"
+                                placeholder="Business Name"
+                                value={this.state.businessName}
+                                onChange={this.onChangeBusinessName}/>
+                            </div>
+
+                            <div className="form-group">
+                                <input type="text" className="form-control"
+                                placeholder="Phone number"
+                                value={this.state.businessGstNumber}
+                                onChange={this.onChangeGstNumber}/>
+                            </div>
+
+                            <div className="form-group">
+                                <input type="submit" value="Submit" 
+                                className="btn btn-primary" 
+                                disabled={!this.state.formValid}
+                                onClick={this.onSubmit}/>
+                            </div>
+                        </form>
+
+                        <div className="col-6">
+                            <UploadImage/>
                         </div>
 
-                        <div className="form-group">
-                            <input type="text" className="form-control"
-                            placeholder="Phone number"
-                            value={this.state.businessGstNumber}
-                            onChange={this.onChangeGstNumber}/>
-                        </div>
-
-                        <div className="form-group">
-                            <input type="submit" value="Submit" 
-                            className="btn btn-primary" 
-                            disabled={!this.state.formValid}
-                            onClick={this.onSubmit}/>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </React.Fragment>
         );
