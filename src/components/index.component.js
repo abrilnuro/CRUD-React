@@ -27,15 +27,16 @@ class Index extends React.Component {
 
     render() {
         return (
-          <div>
-            <h3 align="center">Business List</h3>
-            <table className="table table-striped" style={{ marginTop: 20 }}>
+          <div className="container mt-5 border border-dark p-4">
+            <h4 className="text-center text-light bg-dark p-2">Suppliers List</h4>
+
+            <table className="table table-hover table-responsive-lg" style={{ marginTop: 20 }}>
               <thead>
                 <tr>
-                  <th>Person</th>
-                  <th>Business</th>
-                  <th>GST Number</th>
-                  <th colSpan="2">Action</th>
+                  <th>Supplier</th>
+                  <th>Business name</th>
+                  <th>Phone number</th>
+                  <th colSpan="2"></th>
                 </tr>
               </thead>
               <tbody>

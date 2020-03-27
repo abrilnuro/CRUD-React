@@ -75,9 +75,9 @@ class Create extends React.Component {
                 <div className="container mt-5 border border-dark p-4">
                     <h4 className="text-center text-light bg-dark p-2">Add a new Supplier</h4>
 
-                    <div className="row"> 
+                    <div className="container row"> 
 
-                        <form className="col-6"> 
+                        <form className="col-8 mt-3"> 
                             <div className="form-group">
                                 <input type="text" className="form-control" 
                                 placeholder="Supplier Name"
@@ -106,7 +106,7 @@ class Create extends React.Component {
                             </div>
                         </form>
 
-                        <div className="col-6">
+                        <div className="col-3 offset-1">
                             <UploadImage/>
                         </div>
 
