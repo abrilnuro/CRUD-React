@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import UploadImage from './uploadImage.component'
 
 class Edit extends Component {
   constructor(props) {
@@ -55,42 +56,49 @@ class Edit extends Component {
  
   render() {
     return (
-        <div style={{ marginTop: 10 }}>
-            <h3 align="center">Update Business</h3>
+        <div className="container border border-dark mt-5 p-4">
+            <h4 className="text-center text-light bg-dark p-2">Update Supplier</h4>
 
-            <form onSubmit={this.onSubmit}>
-                <div className="form-group">
-                    <label>Person Name:  </label>
-                    <input 
-                      type="text" 
-                      className="form-control" 
-                      value={this.state.personName}
-                      onChange={this.onChangePersonName}
-                      />
-                </div>
+            <div className="container row">
 
-                <div className="form-group">
-                    <label>Business Name: </label>
-                    <input type="text" 
-                      className="form-control"
-                      value={this.state.businessName}
-                      onChange={this.onChangeBusinessName}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>GST Number: </label>
-                    <input type="text" 
-                      className="form-control"
-                      value={this.state.businessGstNumber}
-                      onChange={this.onChangeGstNumber}
-                      />
-                </div>
-                <div className="form-group">
-                    <input type="submit" 
-                      value="Update Business" 
-                      className="btn btn-primary"/>
-                </div>
-            </form>
+              <form className="col-8 mt-3" onSubmit={this.onSubmit}>
+                  <div className="form-group">
+                      <label className="font-weight-bold">Supplier Name</label>
+                      <input 
+                        type="text" 
+                        className="form-control" 
+                        value={this.state.personName}
+                        onChange={this.onChangePersonName}
+                        />
+                  </div>
+
+                  <div className="form-group">
+                      <label className="font-weight-bold">Business Name</label>
+                      <input type="text" 
+                        className="form-control"
+                        value={this.state.businessName}
+                        onChange={this.onChangeBusinessName}
+                        />
+                  </div>
+                  <div className="form-group">
+                      <label className="font-weight-bold">Phone Number</label>
+                      <input type="text" 
+                        className="form-control"
+                        value={this.state.businessGstNumber}
+                        onChange={this.onChangeGstNumber}
+                        />
+                  </div>
+                  <div className="form-group">
+                      <input type="submit" 
+                        value="Update" 
+                        className="btn btn-primary"/>
+                  </div>
+              </form>
+
+              <div className="col-3 offset-1 mt-3">
+                <UploadImage/>
+              </div>
+            </div>
         </div>
     )
   }

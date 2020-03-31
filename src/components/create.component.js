@@ -1,5 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
+import UploadImage from './uploadImage.component'
+
 
 class Create extends React.Component {
     constructor(props) {
@@ -8,7 +10,8 @@ class Create extends React.Component {
         this.state = {
             personName: '',
             businessName: '',
-            businessGstNumber: ''
+            businessGstNumber: '',
+            formValid: false
         }
 
         this.onChangePersonName = this.onChangePersonName.bind(this);
@@ -18,15 +21,34 @@ class Create extends React.Component {
     }
 
     onChangePersonName(e) {
-        this.setState({personName: e.target.value});
+        this.setState({
+            personName: e.target.value,
+            formValid: this.validateForm()
+        });
     }
 
     onChangeBusinessName(e) {
-        this.setState({businessName: e.target.value});
+        this.setState({
+            businessName: e.target.value,
+            formValid: this.validateForm()
+        });
     }
 
     onChangeGstNumber(e) {
-        this.setState({businessGstNumber: e.target.value});
+        this.setState({
+            businessGstNumber: e.target.value,
+            formValid: this.validateForm()
+        });
+    }
+
+    validateForm() {
+        let personName = this.state.personName;
+        let businessName = this.state.businessName;
+        let businessGstNumber = this.state.businessGstNumber;
+        if (personName !== "" && businessName !== "" && businessGstNumber !== "") {
+            return true;
+        }
+        return false;
     }
 
     onSubmit(e) {
@@ -50,35 +72,45 @@ class Create extends React.Component {
     render() {
         return(
             <React.Fragment>
-                <div style={{marginTop: 10}}>
-                    <h3>Add a new Business</h3>
+                <div className="container mt-5 border border-dark p-4">
+                    <h4 className="text-center text-light bg-dark p-2">Add a new Supplier</h4>
 
-                    <form>
-                        <div className="form-group">
-                            <label>Add Person Name:</label>
-                            <input type="text" className="form-control" 
-                            value={this.state.personName}
-                            onChange={this.onChangePersonName}/>
-                        </div>
-                        <div className="form-group">
-                            <label>Business Name: </label>
-                            <input type="text" className="form-control"
-                            value={this.state.businessName}
-                            onChange={this.onChangeBusinessName}/>
+                    <div className="container row"> 
+
+                        <form className="col-8 mt-3"> 
+                            <div className="form-group">
+                                <input type="text" className="form-control" 
+                                placeholder="Supplier Name"
+                                value={this.state.personName}
+                                onChange={this.onChangePersonName}/>
+                            </div>
+                            <div className="form-group">
+                                <input type="text" className="form-control"
+                                placeholder="Business Name"
+                                value={this.state.businessName}
+                                onChange={this.onChangeBusinessName}/>
+                            </div>
+
+                            <div className="form-group">
+                                <input type="text" className="form-control"
+                                placeholder="Phone number"
+                                value={this.state.businessGstNumber}
+                                onChange={this.onChangeGstNumber}/>
+                            </div>
+
+                            <div className="form-group">
+                                <input type="submit" value="Submit" 
+                                className="btn btn-primary" 
+                                disabled={!this.state.formValid}
+                                onClick={this.onSubmit}/>
+                            </div>
+                        </form>
+
+                        <div className="col-3 offset-1">
+                            <UploadImage/>
                         </div>
 
-                        <div className="form-group">
-                            <label>Add GST Number: </label>
-                            <input type="text" className="form-control"
-                            vaue={this.state.businessGstNumber}
-                            onChange={this.onChangeGstNumber}/>
-                        </div>
-
-                        <div className="form-group">
-                            <input type="submit" value="Register Business" 
-                            className="btn btn-primary" onClick={this.onSubmit}/>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </React.Fragment>
         );
