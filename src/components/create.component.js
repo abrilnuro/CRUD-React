@@ -53,14 +53,27 @@ class Create extends React.Component {
 
     onSubmit(e) {
         e.preventDefault();
-        const object = {
+        /*const object = {
             personName: this.state.personName,
             businessName: this.state.businessName,
             businessGstNumber: this.state.businessGstNumber
-        }
+        }*/
 
-        Axios.post('http://localhost:4000/business/add', object)
-            .then(res => console.log(res.data));
+        const object = {
+            name: this.state.personName,
+            description: this.state.businessName,
+            phoneNumber: this.state.businessGstNumber
+        }    
+        
+        /*Axios.post('http://localhost:4000/business/add', object)
+            .then(res => console.log(res.data));*/
+        Axios.post('http://localhost:8080/api/', object)
+            .then(function (response) {
+                console.log(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
 
         this.setState({
             personName: '',

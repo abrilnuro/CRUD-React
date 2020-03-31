@@ -9,7 +9,7 @@ class Index extends React.Component {
     }
 
     componentDidMount(){
-        Axios.get('http://localhost:4000/business')
+        Axios.get('http://localhost:8080/api/')
           .then(response => {
             this.setState({ business: response.data });
           })

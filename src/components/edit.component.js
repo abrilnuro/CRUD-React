@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import Axios from 'axios';
 import UploadImage from './uploadImage.component'
 
 class Edit extends Component {
@@ -18,12 +18,12 @@ class Edit extends Component {
   }
 
   componentDidMount() {
-      axios.get('http://localhost:4000/business/edit/'+this.props.match.params.id)
+      Axios.get('http://localhost:8080/api/' + this.props.match.params.id)
           .then(response => {
               this.setState({ 
-                personName: response.data.personName, 
-                businessName: response.data.businessName,
-                businessGstNumber: response.data.businessGstNumber });
+                personName: response.data.name, 
+                businessName: response.data.description,
+                businessGstNumber: response.data.phoneNumber });
           })
           .catch(function (error) {
               console.log(error);
@@ -43,13 +43,19 @@ class Edit extends Component {
   onSubmit(e) {
     e.preventDefault();
     const obj = {
-      personName: this.state.personName,
-      businessName: this.state.businessName,
-      businessGstNumber: this.state.businessGstNumber
+      id: this.props.match.params.id,
+      name: this.state.personName,
+      description: this.state.businessName,
+      phoneNumber: this.state.businessGstNumber
     };
 
-    axios.post('http://localhost:4000/business/update/'+this.props.match.params.id, obj)
-        .then(res => console.log(res.data));
+    Axios.patch('http://localhost:8080/api/', obj)
+        .then(function (response) {
+            console.log(response.data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
     
     this.props.history.push('/index');
   }
