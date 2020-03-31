@@ -9,9 +9,17 @@ class TableRow extends React.Component {
   } 
   
   delete() {
-    Axios.get('http://localhost:4000/business/delete/'+this.props.obj._id)
+    /*Axios.get('http://localhost:8080/' + this.props.obj.id)
       .then(console.log('Deleted'))
-      .catch(err => console.log(err));
+      .catch(err => console.log(err));*/
+    
+    Axios.delete('http://localhost:8080/api/' + this.props.obj.id)
+      .then(function (response) {
+          console.log(response.data);
+      })
+      .catch(function (error) {
+          console.log(error);
+      });
       
       window.location.reload(false);
   }
@@ -20,16 +28,16 @@ class TableRow extends React.Component {
     return (
         <tr>
           <td>
-            {this.props.obj.personName}
+            {this.props.obj.name}
           </td>
           <td>
-            {this.props.obj.businessName}
+            {this.props.obj.description}
           </td>
           <td>
-            {this.props.obj.businessGstNumber}
+            {this.props.obj.phoneNumber}
           </td>
           <td>
-            <Link to={"/edit/"+this.props.obj._id} className="btn btn-primary">Edit</Link>
+            <Link to={"/edit/"+this.props.obj.id} className="btn btn-primary">Edit</Link>
           </td>
           <td>
             <button onClick={this.delete} className="btn btn-danger">Delete</button>
