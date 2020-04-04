@@ -6,19 +6,16 @@ class Upload extends React.Component {
     super(props)
     this.state = {
       file: null,
-      temporalFile: null,
-      photo: null
+      temporalFile: null
     }
-    this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount(){
-    const id = "5e865948f1e7d063000cf9cc";
-    Axios.get('http://localhost:8080/api/photos'+ id)
+    const id = "5e890c19df0ebd51ae5595f5";
+    Axios.get('http://localhost:8080/api/image/'+ id)
       .then(response => {
-        this.setState({ 
-          temporalFile: URL.createObjectURL(response.data) 
-        });
+        let base64String = 'data:image/png;base64,' + response.data.image.data;
+        this.setState({temporalFile: base64String})
       }).catch(function (error) {
         console.log(error);
       });
@@ -36,7 +33,7 @@ class Upload extends React.Component {
     const formData = new FormData();
     formData.append('file', this.state.file);
 
-    Axios.post('http://localhost:8080/api/upload', formData, {
+    Axios.post('http://localhost:8080/api/upload-image', formData, {
       headers: {'Content-Type': 'multipart/form-data' }
     }).then((response) => {
       console.log(response.data);
@@ -52,21 +49,21 @@ class Upload extends React.Component {
 
           <img style={{width: 200, height: 150}}
             className="border border-dark"
-            src={this.state.temporalFile}/>
-
-          <img src={"data:image/png;base64," + this.state.photo} />
-
+            src={this.state.temporalFile}
+            alt="No available"/>
         
             <div className="row">
                 <div className="col-12">
-                        <div className="form-group files color">
-                            <input type="file" className="form-control" 
-                              name="file" onChange={this.handleChange}/>
-                        </div>
+                  <div className="form-group files color">
+                    <input type="file" className="form-control" 
+                      name="file" onChange={this.handleChange}/>
+                  </div>
                 </div>
             </div>
         </div>
+
         <button onClick={this.submit}>submit</button>
+
       </React.Fragment>
     );
   }
