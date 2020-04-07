@@ -5,11 +5,9 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
 
-import Upload from './components/uploadImage.component';
-
 ReactDOM.render(
   <BrowserRouter>
-    <Upload />
+    <App />
   </BrowserRouter>,
   document.getElementById('root')
 );

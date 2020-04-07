@@ -1,13 +1,14 @@
 import React from 'react';
 import Axios from 'axios';
-import UploadImage from './uploadImage.component'
-
+import ImageComponent from './image.component'
+import { resolve } from 'q';
 
 class Create extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            newSupplier: true,
             personName: '',
             businessName: '',
             businessGstNumber: '',
@@ -18,6 +19,8 @@ class Create extends React.Component {
         this.onChangeBusinessName = this.onChangeBusinessName.bind(this);
         this.onChangeGstNumber = this.onChangeGstNumber.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+
+        this.fileRef = React.createRef();
     }
 
     onChangePersonName(e) {
@@ -53,25 +56,22 @@ class Create extends React.Component {
 
     onSubmit(e) {
         e.preventDefault();
-        /*const object = {
-            personName: this.state.personName,
-            businessName: this.state.businessName,
-            businessGstNumber: this.state.businessGstNumber
-        }*/
 
         const object = {
             name: this.state.personName,
             description: this.state.businessName,
-            phoneNumber: this.state.businessGstNumber
-        }    
+            phoneNumber: this.state.businessGstNumber,
+            image:{
+                title: this.state.personName,
+                image: this.fileRef.current.state.file
+            }
+        } 
         
-        /*Axios.post('http://localhost:4000/business/add', object)
-            .then(res => console.log(res.data));*/
-        Axios.post('http://localhost:8080/api/', object)
-            .then(function (response) {
+        Axios.post('http://localhost:8080/api', object,{
+                headers: {'Content-Type': 'application/json'}
+            }).then((response) => {
                 console.log(response.data);
-            })
-            .catch(function (error) {
+            }).catch((error) => {
                 console.log(error);
             });
 
@@ -113,14 +113,14 @@ class Create extends React.Component {
 
                             <div className="form-group">
                                 <input type="submit" value="Submit" 
-                                className="btn btn-primary" 
-                                disabled={!this.state.formValid}
+                                className="btn btn-primary"
                                 onClick={this.onSubmit}/>
                             </div>
                         </form>
 
                         <div className="col-3 offset-1">
-                            <UploadImage/>
+                            <ImageComponent ref={this.fileRef}
+                                dataFromParent={this.state.newSupplier}/>
                         </div>
 
                     </div>

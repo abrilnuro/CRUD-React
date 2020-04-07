@@ -9,10 +9,6 @@ class TableRow extends React.Component {
   } 
   
   delete() {
-    /*Axios.get('http://localhost:8080/' + this.props.obj.id)
-      .then(console.log('Deleted'))
-      .catch(err => console.log(err));*/
-    
     Axios.delete('http://localhost:8080/api/' + this.props.obj.id)
       .then(function (response) {
           console.log(response.data);
