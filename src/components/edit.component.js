@@ -1,34 +1,45 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
-import UploadImage from './uploadImage.component'
+import Image from './image.component'
 
 class Edit extends Component {
   constructor(props) {
     super(props);
+
     this.onChangePersonName = this.onChangePersonName.bind(this);
     this.onChangeBusinessName = this.onChangeBusinessName.bind(this);
     this.onChangeGstNumber = this.onChangeGstNumber.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
+    this.fileRef = React.createRef();
+
     this.state = {
+      id: '',
       personName: '',
       businessName: '',
-      businessGstNumber:''
+      businessGstNumber:'',
+      image: ''
     }
   }
 
-  componentDidMount() {
-      Axios.get('http://localhost:8080/api/' + this.props.match.params.id)
-          .then(response => {
-              this.setState({ 
-                personName: response.data.name, 
-                businessName: response.data.description,
-                businessGstNumber: response.data.phoneNumber });
-          })
-          .catch(function (error) {
-              console.log(error);
-          })
-    }
+  componentDidMount(){
+    Axios.get('http://localhost:8080/api/' + this.props.match.params.id)
+      .then(response => {
+        this.setState({
+          id: response.data.id,
+          personName: response.data.name, 
+          businessName: response.data.description,
+          businessGstNumber: response.data.phoneNumber,
+          image: {
+            id: response.data.image.id
+          }
+        });
+        this.fileRef.current.setFile('data:image/png;base64,' + response.data.image.image);
+        console.log(response.data);
+      }).catch(function (error) {
+        console.log(error);
+      });
+  }
 
   onChangePersonName(e) {
     this.setState({personName: e.target.value});
@@ -42,19 +53,24 @@ class Edit extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    const obj = {
-      id: this.props.match.params.id,
+    const object = {
+      id: this.state.id,
       name: this.state.personName,
       description: this.state.businessName,
-      phoneNumber: this.state.businessGstNumber
+      phoneNumber: this.state.businessGstNumber,
+      image: {
+        id: this.state.image.id,
+        idSupplier: this.state.id,
+        title: this.state.personName,
+        image: this.fileRef.current.state.file.replace(/^data:.+;base64,/, '')
+      }
     };
 
-    Axios.patch('http://localhost:8080/api/', obj)
+    Axios.patch('http://localhost:8080/api/', object)
         .then(function (response) {
-            console.log(response.data);
-        })
-        .catch(function (error) {
-            console.log(error);
+          console.log(response.data);
+        }).catch(function (error) {
+          console.log(error);
         });
     
     this.props.history.push('/index');
@@ -83,8 +99,7 @@ class Edit extends Component {
                       <input type="text" 
                         className="form-control"
                         value={this.state.businessName}
-                        onChange={this.onChangeBusinessName}
-                        />
+                        onChange={this.onChangeBusinessName}/>
                   </div>
                   <div className="form-group">
                       <label className="font-weight-bold">Phone Number</label>
@@ -102,7 +117,7 @@ class Edit extends Component {
               </form>
 
               <div className="col-3 offset-1 mt-3">
-                <UploadImage/>
+                <Image ref={this.fileRef}/>
               </div>
             </div>
         </div>

@@ -1,7 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
 import ImageComponent from './image.component'
-import { resolve } from 'q';
 
 class Create extends React.Component {
     constructor(props) {
@@ -63,7 +62,7 @@ class Create extends React.Component {
             phoneNumber: this.state.businessGstNumber,
             image:{
                 title: this.state.personName,
-                image: this.fileRef.current.state.file
+                image: this.fileRef.current.state.file.replace(/^data:.+;base64,/, '')
             }
         } 
         
@@ -78,8 +77,10 @@ class Create extends React.Component {
         this.setState({
             personName: '',
             businessName: '',
-            businessGstNumber: ''
+            businessGstNumber: '',
         });
+
+        this.fileRef.current.setFile('');
     }
 
     render() {

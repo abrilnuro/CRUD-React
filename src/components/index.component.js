@@ -9,13 +9,14 @@ class Index extends React.Component {
     }
 
     componentDidMount(){
-        Axios.get('http://localhost:8080/api/')
-          .then(response => {
+      Axios.get('http://localhost:8080/api/')
+        .then(response => {
             this.setState({ business: response.data });
-          })
-          .catch(function (error) {
-            console.log(error);
-          })
+            console.log(response.data)
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
     }
 
 
